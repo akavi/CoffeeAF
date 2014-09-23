@@ -576,7 +576,7 @@ exports.Comment = class Comment extends Base
   makeReturn:      THIS
 
   compileNode: (o, level) ->
-    comment = @comment.replace /^(\s*)#/gm, "$1 *"
+    comment = @comment.replace /^(\s*)# /gm, "$1 * "
     code = "/*#{multident comment, @tab}#{if '\n' in comment then "\n#{@tab}" else ''} */"
     code = o.indent + code if (level or o.level) is LEVEL_TOP
     [@makeCode("\n"), @makeCode(code)]
@@ -2170,6 +2170,14 @@ exports.If = class If extends Base
 
   unfoldSoak: ->
     @soak and this
+
+exports.MonadSoak = class MonadSoak extends Base
+  constructor: (@base, @child)->
+
+  compileNode: ->
+    base_code = @base.compileNode()[0].code
+    child_code = @child.compileNode()[0].code
+    [new CodeFragment this, "(#{base_code}).and_then(function(x){return x.#{child_code};)"]
 
 # Constants
 # ---------

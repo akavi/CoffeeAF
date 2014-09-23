@@ -101,6 +101,7 @@ grammar =
   # is one. Blocks serve as the building blocks of many other rules, making
   # them somewhat circular.
   Expression: [
+    o 'MonadSoak'
     o 'Value'
     o 'Invocation'
     o 'Code'
@@ -113,6 +114,11 @@ grammar =
     o 'Switch'
     o 'Class'
     o 'Throw'
+  ]
+
+  MonadSoak: [
+    o 'Value &. Identifier',                        -> new MonadSoak $1, $3
+    o 'MonadSoak &. Identifier',                    -> new MonadSoak $1, $3
   ]
 
   # An indented block of expressions. Note that the [Rewriter](rewriter.html)
@@ -257,6 +263,7 @@ grammar =
     o 'Range',                                  -> new Value $1
     o 'This'
   ]
+
 
   # The general group of accessors into an object, by property, by prototype
   # or by array index or slice.
