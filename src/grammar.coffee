@@ -117,8 +117,10 @@ grammar =
   ]
 
   MonadSoak: [
+    o 'Value &. Invocation',                        -> new MonadSoak $1, $3
+    o 'MonadSoak &. Invocation',                        -> new MonadSoak $1, $3
     o 'Value &. Identifier',                        -> new MonadSoak $1, $3
-    o 'MonadSoak &. Identifier',                    -> new MonadSoak $1, $3
+    o 'MonadSoak &. Identifier',                        -> new MonadSoak $1, $3
   ]
 
   # An indented block of expressions. Note that the [Rewriter](rewriter.html)

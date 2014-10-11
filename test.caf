@@ -1,13 +1,4 @@
-class Maybe
-  constructor: (@val)->
-
-  and_then: (func)->
-    if @val?
-      new Maybe(func(@val))
-    else
-      new Maybe(@val)
-
-
-null_maybe = new Maybe(null)
-null_maybe&.try&.foo
-consoel.log null_result
+null_maybe&.foo
+null_maybe&.foo()
+null_maybe&.foo&.bar
+null_maybe&.foo()&.bar()

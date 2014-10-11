@@ -2176,7 +2176,9 @@ exports.MonadSoak = class MonadSoak extends Base
 
   compileNode: ->
     base_code = @base.compileNode()[0].code
-    child_code = @child.compileNode()[0].code
+    child_code = ""
+    for code in @child.compileNode()
+      child_code += code.code
     [new CodeFragment this, "(#{base_code}).and_then(function(x){return x.#{child_code};)"]
 
 # Constants
