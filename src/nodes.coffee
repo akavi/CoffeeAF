@@ -2174,12 +2174,15 @@ exports.If = class If extends Base
 exports.MonadSoak = class MonadSoak extends Base
   constructor: (@base, @child)->
 
+  nodeToString: (node)->
+    code = ""
+    for fragment in node.compileNode()
+      code += fragment.code
+
   compileNode: ->
-    base_code = @base.compileNode()[0].code
-    child_code = ""
-    for code in @child.compileNode()
-      child_code += code.code
-    [new CodeFragment this, "(#{base_code}).and_then(function(x){return x.#{child_code};)"]
+    baseCode = @nodeToString(@base)
+    childCode = @nodeToString(@child)
+    [new CodeFragment this, "(#{baseCode}).and_then(function(x){return x.#{childCode};)"]
 
 # Constants
 # ---------

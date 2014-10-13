@@ -101,7 +101,6 @@ grammar =
   # is one. Blocks serve as the building blocks of many other rules, making
   # them somewhat circular.
   Expression: [
-    o 'MonadSoak'
     o 'Value'
     o 'Invocation'
     o 'Code'
@@ -114,13 +113,6 @@ grammar =
     o 'Switch'
     o 'Class'
     o 'Throw'
-  ]
-
-  MonadSoak: [
-    o 'Value &. Invocation',                        -> new MonadSoak $1, $3
-    o 'MonadSoak &. Invocation',                        -> new MonadSoak $1, $3
-    o 'Value &. Identifier',                        -> new MonadSoak $1, $3
-    o 'MonadSoak &. Identifier',                        -> new MonadSoak $1, $3
   ]
 
   # An indented block of expressions. Note that the [Rewriter](rewriter.html)
@@ -319,8 +311,16 @@ grammar =
 
   # Ordinary function invocation, or a chained series of calls.
   Invocation: [
+    o 'SimpleInvocation',                                 -> $1
+    o 'Value &. Identifier',                         -> new MonadSoak $1, $3
+    o 'Value &. Identifier OptFuncExist Arguments',  -> new MonadSoak $1, new Call $3, $5, $4
+    o 'Invocation &. Identifier',                         -> new MonadSoak $1, $3
+    o 'Invocation &. Identifier OptFuncExist Arguments',  -> new MonadSoak $1, new Call $3, $5, $4
+  ]
+
+  SimpleInvocation: [
     o 'Value OptFuncExist Arguments',           -> new Call $1, $3, $2
-    o 'Invocation OptFuncExist Arguments',      -> new Call $1, $3, $2
+    o 'SimpleInvocation OptFuncExist Arguments',-> new Call $1, $3, $2
     o 'SUPER',                                  -> new Call 'super', [new Splat new Literal 'arguments']
     o 'SUPER Arguments',                        -> new Call 'super', $2
   ]

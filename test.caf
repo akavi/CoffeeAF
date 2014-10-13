@@ -1,4 +1,11 @@
 null_maybe&.foo
-null_maybe&.foo()
+null_mabye&.foo()
+
 null_maybe&.foo&.bar
-null_maybe&.foo()&.bar()
+null_maybe&.foo()&.bar
+
+null_maybe&.foo.bar
+null_mabye&.foo().bar
+
+(null_maybe&.foo().bar)&.baz
+null_maybe.foo&.bar
