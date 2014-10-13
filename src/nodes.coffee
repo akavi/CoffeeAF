@@ -2171,7 +2171,7 @@ exports.If = class If extends Base
   unfoldSoak: ->
     @soak and this
 
-exports.MonadSoak = class MonadSoak extends Base
+exports.MonadCall = class MonadCall extends Base
   constructor: (@base, @child)->
 
   nodeToString: (node)->
@@ -2183,10 +2183,12 @@ exports.MonadSoak = class MonadSoak extends Base
   compileNode: ->
     baseCode = @nodeToString(@base)
     childCode = @nodeToString(@child)
+
     funcRef = "_ref1"
     baseRef = "_ref2"
     baseReffage = "#{baseRef} = #{baseCode}"
-    wrappedCode = "new (#{baseRef}).constructor(#{funcRef}.#{childCode})"
+    wrappedCall = "new (#{baseRef}).constructor(#{funcRef}.#{childCode})"
+
     [new CodeFragment this, "(#{baseReffage}, #{baseRef}).and_then(function(#{funcRef}){return #{wrappedCode};})"]
 
 # Constants

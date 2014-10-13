@@ -316,10 +316,10 @@ grammar =
   ]
 
   MonadInvocation: [
-    o 'Value &. Identifier',                              -> new MonadSoak $1, $3
-    o 'Value &. Identifier OptFuncExist Arguments',       -> new MonadSoak $1, new Call $3, $5, $4
-    o 'Invocation &. Identifier',                         -> new MonadSoak $1, $3
-    o 'Invocation &. Identifier OptFuncExist Arguments',  -> new MonadSoak $1, new Call $3, $5, $4
+    o 'Value &. Identifier',                              -> new MonadCall $1, $3
+    o 'Value &. Identifier OptFuncExist Arguments',       -> new MonadCall $1, new Call $3, $5, $4
+    o 'Invocation &. Identifier',                         -> new MonadCall $1, $3
+    o 'Invocation &. Identifier OptFuncExist Arguments',  -> new MonadCall $1, new Call $3, $5, $4
   ]
 
   SimpleInvocation: [
