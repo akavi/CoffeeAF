@@ -1,0 +1,20 @@
+get_github_api_urls.
+  and_then { |urls | get_org(urls, 'ruby')         }.
+  and_then { |org  | get_repos(org)                }.
+  and_then { |repos| get_most_popular_repo(repos)  }.
+  and_then { |repo | get_contributors(repo)        }.
+  and_then { |users| get_most_prolific_user(users) }.
+  run do |user|
+    puts "The most influential Rubyist is #{user['name']} (#{user['login']})"
+  end
+
+
+mostInfluentialUser: (org)->
+  urls =& get_github_api_urls
+  org =& get_org(urls, org)
+  repo =& get_most_popular_repo(repos)
+  users =& get_contributors(repo)
+  user =& get_most_prolific_user(users)
+
+  console.log "The most influential Rubyist is #{user.name} (#{user.login}"
+

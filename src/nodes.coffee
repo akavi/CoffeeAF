@@ -288,6 +288,14 @@ exports.Block = class Block extends Base
         # it in a new scope; we just compile the statements in this block along with
         # our own
         compiledNodes.push node.compileNode o
+
+      else if node instanceof BackCall
+        node.giveBlock Block.wrap @expressions[(index + 1)...]
+        backCallFragment = node.compileNode(o)
+        backCallFragment.unshift @makeCode "#{@tab}"
+        compiledNodes.push backCallFragment
+        break
+
       else if top
         node.front = true
         fragments = node.compileToFragments o
@@ -2189,7 +2197,19 @@ exports.MonadCall = class MonadCall extends Base
     baseReffage = "#{baseRef} = #{baseCode}"
     wrappedCall = "new (#{baseRef}).constructor(#{funcRef}.#{childCode})"
 
-    [new CodeFragment this, "(#{baseReffage}, #{baseRef}).and_then(function(#{funcRef}){return #{wrappedCode};})"]
+    [new CodeFragment this, "(#{baseReffage}, #{baseRef}).and_then(function(#{funcRef}){return #{wrappedCall};})"]
+
+exports.BackCall = class BackCall extends Base
+  constructor: (@assign, @call)->
+
+  giveBlock: (block)->
+    callVar = new Param @assign
+    @function = new Code([callVar], block, 'boundfunc')
+
+  compileNode: (o)->
+    @call.tab = o.indent
+    @call.args.push(@function)
+    @call.compileNode(o)
 
 # Constants
 # ---------

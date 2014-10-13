@@ -35,3 +35,9 @@ foo_result = foo_maybe&.foo()&.bar()&.baz().val
 
 console.log "null res: #{null_result}"
 console.log "foo res: #{foo_result}"
+
+
+
+backCallFunc = ->
+  x =< someFunc()
+  x = x + 3

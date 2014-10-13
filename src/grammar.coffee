@@ -76,7 +76,6 @@ grammar =
     o 'Body'
   ]
 
-  # Any list of statements and expressions, separated by line breaks or semicolons.
   Body: [
     o 'Line',                                   -> Block.wrap [$1]
     o 'Body TERMINATOR Line',                   -> $1.push $3
@@ -85,6 +84,7 @@ grammar =
 
   # Block and statements, which make up a line in a body.
   Line: [
+    o 'Identifier =< Invocation',                   -> new BackCall $1, $3
     o 'Expression'
     o 'Statement'
   ]
