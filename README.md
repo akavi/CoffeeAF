@@ -1,60 +1,15 @@
-            {
-         }   }   {
-        {   {  }  }
-         }   }{  {
-        {  }{  }  }                    _____       __  __
-       { }{ }{  { }                   / ____|     / _|/ _|
-     .- { { }  { }} -.               | |     ___ | |_| |_ ___  ___
-    (  { } { } { } }  )              | |    / _ \|  _|  _/ _ \/ _ \
-    |`-..________ ..-'|              | |___| (_) | | | ||  __/  __/
-    |                 |               \_____\___/|_| |_| \___|\___|
-    |                 ;--.
-    |                (__  \            _____           _       _
-    |                 | )  )          / ____|         (_)     | |
-    |                 |/  /          | (___   ___ _ __ _ _ __ | |_
-    |                 (  /            \___ \ / __| '__| | '_ \| __|
-    |                 |/              ____) | (__| |  | | |_) | |_
-    |                 |              |_____/ \___|_|  |_| .__/ \__|
-     `-.._________..-'                                  | |
-                                                        |_|
+## What?
 
-CoffeeScript is a little language that compiles into JavaScript.
+Like the description says, an experiment in adding syntactic support for monads to CoffeeScript
 
-## Installation
+## But why?
 
-If you have the node package manager, npm, installed:
+Largely inspired [this article](http://codon.com/refactoring-ruby-with-monads) about monads in Ruby. The fun stuff he does with `method_missing` isn't super easy in CS/JS, so adding it at the syntax level seemed like a good idea.
 
-```shell
-npm install -g coffee-script
-```
+Plus, having good syntactic sugar for things (even when they're already possible in a slightly clunkier way) means they're more likely to be used.
 
-Leave off the `-g` if you don't wish to install globally. If you don't wish to use npm:
+## These aren't actually monads...
 
-```shell
-git clone https://github.com/jashkenas/coffeescript.git
-sudo coffeescript/bin/cake install
-```
+Yeah, probably. 
 
-## Getting Started
-
-Execute a script:
-
-```shell
-coffee /path/to/script.coffee
-```
-
-Compile a script:
-
-```shell
-coffee -c /path/to/script.coffee
-```
-
-For documentation, usage, and examples, see: http://coffeescript.org/
-
-To suggest a feature or report a bug: http://github.com/jashkenas/coffeescript/issues
-
-If you'd like to chat, drop by #coffeescript on Freenode IRC.
-
-The source repository: https://github.com/jashkenas/coffeescript.git
-
-Our lovely and talented contributors are listed here: http://github.com/jashkenas/coffeescript/contributors
+I'm still kind of working on my understanding of these little guys. Hopefully, as I stumble through the implementation, I'll be able to properlly figure them out. Explanations of things I've gotten wrong are super welcome.
