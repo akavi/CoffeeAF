@@ -1,11 +1,37 @@
-null_maybe&.foo
-null_mabye&.foo()
+class Maybe 
+  constructor: (@val)->
 
-null_maybe&.foo&.bar
-null_maybe&.foo()&.bar
+  and_then: (func)->
+    if @val
+      func(@val)
+    else 
+      new Maybe(@val)
 
-null_maybe&.foo.bar
-null_mabye&.foo().bar
+class Foo
+  constructor: ->
+    @thing = "a"
 
-(null_maybe&.foo().bar)&.baz
-null_maybe.foo&.bar
+  foo: ->
+    @thing += " and foo"
+    @
+
+  bar: ->
+    @thing += " and bar"
+    @
+
+  baz: ->
+    @thing += " and baz"
+    @
+
+  toString: ->
+    "Contains #{@thing}"
+
+
+null_maybe = new Maybe(null)
+foo_maybe = new Maybe(new Foo())
+
+null_result = null_maybe&.foo()&.bar()&.baz.val
+foo_result = foo_maybe&.foo()&.bar()&.baz().val
+
+console.log "null res: #{null_result}"
+console.log "foo res: #{foo_result}"

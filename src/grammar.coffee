@@ -312,8 +312,12 @@ grammar =
   # Ordinary function invocation, or a chained series of calls.
   Invocation: [
     o 'SimpleInvocation',                                 -> $1
-    o 'Value &. Identifier',                         -> new MonadSoak $1, $3
-    o 'Value &. Identifier OptFuncExist Arguments',  -> new MonadSoak $1, new Call $3, $5, $4
+    o 'MonadInvocation',                                  -> $1
+  ]
+
+  MonadInvocation: [
+    o 'Value &. Identifier',                              -> new MonadSoak $1, $3
+    o 'Value &. Identifier OptFuncExist Arguments',       -> new MonadSoak $1, new Call $3, $5, $4
     o 'Invocation &. Identifier',                         -> new MonadSoak $1, $3
     o 'Invocation &. Identifier OptFuncExist Arguments',  -> new MonadSoak $1, new Call $3, $5, $4
   ]

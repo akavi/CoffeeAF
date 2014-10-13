@@ -2181,11 +2181,13 @@ exports.MonadSoak = class MonadSoak extends Base
     code
 
   compileNode: ->
-    ref = "_ref"
     baseCode = @nodeToString(@base)
     childCode = @nodeToString(@child)
-    wrappedCode = "new (#{baseCode}).constructor(#{ref}.#{childCode})"
-    [new CodeFragment this, "(#{baseCode}).and_then(function(#{ref}){return #{wrappedCode};})"]
+    funcRef = "_ref1"
+    baseRef = "_ref2"
+    baseReffage = "#{baseRef} = #{baseCode}"
+    wrappedCode = "new (#{baseRef}).constructor(#{funcRef}.#{childCode})"
+    [new CodeFragment this, "(#{baseReffage}, #{baseRef}).and_then(function(#{funcRef}){return #{wrappedCode};})"]
 
 # Constants
 # ---------
